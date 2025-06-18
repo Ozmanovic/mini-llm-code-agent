@@ -2,7 +2,7 @@
 
 import unittest
 from pkg.calculator import Calculator
-from functions.get_files_info import get_files_info
+from functions.get_files_info import get_files_info, get_file_content
 
 
 class TestCalculator(unittest.TestCase):
@@ -45,24 +45,18 @@ class TestCalculator(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.calculator.evaluate("+ 3")
 
-class Test_get_files_info(unittest.TestCase):
+class Test_get_file_content(unittest.TestCase):
 
 
-    def test_get_files_info1(self):
-        result = get_files_info("calculator", ".")
+    def test_get_file_content(self):
+        result = get_file_content("calculator", "lorem1.txt")
         print(result)
 
-    def test_get_files_info2(self):
-        result = get_files_info("calculator", "pkg")
+    def test_get_files_content2(self):
+        result = get_file_content("calculator", "lorem.txt")
         print(result)
 
-    def test_get_files_info3(self):
-        result = get_files_info("calculator", "/bin")
-        print(result)       
 
-    def test_get_files_info4(self):
-        result = get_files_info("calculator", "../")
-        print(result)
 
 
 if __name__ == "__main__":

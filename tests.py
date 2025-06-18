@@ -2,28 +2,29 @@
 
 import unittest
 
-from functions.get_files_info import get_files_info
+from functions.get_files_info import get_file_content
 
 
 
-class Test_get_files_info(unittest.TestCase):
+class Test_get_file_content(unittest.TestCase):
 
 
-    def test_get_files_info1(self):
-        result = get_files_info("calculator", ".")
+    def test_get_file_content(self):
+        result = get_file_content("calculator", "main.py")
+        print("THIS SHOULD BE MAIN.PY CODE: ")
         print(result)
+        print("THIS SHOULD BE MAIN.PY CODE: ")
 
-    def test_get_files_info2(self):
-        result = get_files_info("calculator", "pkg")
+    def test_get_files_content2(self):
+        result = get_file_content("calculator", "pkg/calculator.py")
+        print("THIS SHOULD BE CALCULATOR.PY CODE: ")
         print(result)
-
-    def test_get_files_info3(self):
-        result = get_files_info("calculator", "/bin")
-        print(result)       
-
-    def test_get_files_info4(self):
-        result = get_files_info("calculator", "../")
+        print("THIS SHOULD BE CALCULATOR.PY CODE: ")
+    def test_get_files_content3(self):
+        result = get_file_content("calculator", "/bin/cat")
+        print("THIS SHOULD BE ERROR: ")
         print(result)
+        print("THIS SHOULD BE ERROR: ")
 
 
 if __name__ == "__main__":
