@@ -2,7 +2,7 @@
 
 import unittest
 from pkg.calculator import Calculator
-from functions.get_files_info import get_files_info, get_file_content
+
 
 
 class TestCalculator(unittest.TestCase):
@@ -44,19 +44,6 @@ class TestCalculator(unittest.TestCase):
     def test_not_enough_operands(self):
         with self.assertRaises(ValueError):
             self.calculator.evaluate("+ 3")
-
-class Test_get_file_content(unittest.TestCase):
-
-
-    def test_get_file_content(self):
-        result = get_file_content("calculator", "lorem1.txt")
-        print(result)
-
-    def test_get_files_content2(self):
-        result = get_file_content("calculator", "lorem.txt")
-        print(result)
-
-
 
 
 if __name__ == "__main__":
