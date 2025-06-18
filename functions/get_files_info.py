@@ -1,6 +1,6 @@
 import os
 
-
+# Check what files are in directory
 def get_files_info(working_directory, directory=None):
     
         if directory == None:
@@ -31,23 +31,20 @@ def get_files_info(working_directory, directory=None):
             return f"An error occurred: {e}"
 
 
-
-def get_file_content(working_directory, file=None):
+# Get content of files
+def get_file_content(working_directory, file_path):
      
-         
-        if file == None:
-            file = os.path.join(working_directory, ".")
         absolute_og_path = os.path.abspath(working_directory)
-        target_path = os.path.join(working_directory, file)
-        file_path = os.path.abspath(target_path)
+        target_path = os.path.join(working_directory, file_path)
+        absolute_file_path = os.path.abspath(target_path)
 
-        if not file_path.startswith(absolute_og_path):
+        if not absolute_file_path.startswith(absolute_og_path):
             print(f"'{absolute_og_path}' \n")
             print(f"'{target_path}'")
-            return f'Error: Cannot list "{file_path}" as it is outside the permitted working directory'
+            return f'Error: Cannot list "{absolute_file_path}" as it is outside the permitted working directory'
 
-        elif not os.path.isfile(file_path):
-            return f'Error: "{file}" is not a file'
+        elif not os.path.isfile(absolute_file_path):
+            return f'Error: "{file_path}" is not a file'
         
         try:
             
@@ -55,12 +52,12 @@ def get_file_content(working_directory, file=None):
         
             
             MAX_CHARS = 10000
-            with open(file_path, "r") as f:
+            with open(absolute_file_path, "r") as f:
                 content = f.read()
                 if len(content) > MAX_CHARS:
                     file_content_string = content[:MAX_CHARS]
                     empty_list.append(file_content_string)
-                    empty_list.append(f'[...File "{file_path}" truncated at 10000 characters]')
+                    empty_list.append(f'[...File "{absolute_file_path}" truncated at 10000 characters]')
                 else:
                      file_content_string = content
                      empty_list.append(file_content_string)
@@ -71,6 +68,33 @@ def get_file_content(working_directory, file=None):
             return(final_string)
         except Exception as e:
             return f"An error occurred: {e}"
+        
+
+def write_file(working_directory, file_path, content):
+     
+        absolute_og_path = os.path.abspath(working_directory)
+        target_path = os.path.join(working_directory, file_path)
+        absolute_file_path = os.path.abspath(target_path)
+
+        if not absolute_file_path.startswith(absolute_og_path):
+            print(f"'{absolute_og_path}' \n")
+            print(f"'{target_path}'")
+            return f'Error: Cannot list "{absolute_file_path}" as it is outside the permitted working directory'
+        try:
+             
+            if not os.path.exists(absolute_file_path):
+                directory = os.path.dirname(absolute_file_path) 
+                os.makedirs(directory, exist_ok=True)
+                with open(absolute_file_path, 'w') as f:
+                    f.write(content)
+                    return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
+            else:
+                with open(absolute_file_path, 'w') as f:
+                    f.write(content)
+                    return f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
+        except Exception as e:
+            return f"Error: {e}"
+                
                 
 
         
@@ -82,8 +106,3 @@ def get_file_content(working_directory, file=None):
 
 
 
-#tests        
-direct = "calculator"
-working_directory = f"/home/ozmanovic/workspace/github.com/Ozmanovic/mini-llm-code-agent/{direct}"
-directory = "pkg"
-get_files_info(working_directory, directory)
