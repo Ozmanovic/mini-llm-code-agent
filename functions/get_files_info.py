@@ -4,7 +4,7 @@ import os
 def get_files_info(working_directory, directory=None):
     
         if directory == None:
-            directory = os.path.join(working_directory, ".")
+            directory = "."
         absolute_og_path = os.path.abspath(working_directory)
         target_path = os.path.join(working_directory, directory)
         final_path = os.path.abspath(target_path)
